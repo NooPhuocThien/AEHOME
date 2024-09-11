@@ -28,6 +28,7 @@
     display: flex;
     flex-direction: row;
     text-align: center;
+    
   }
   .machine_card_container + .machine_card_container{
     margin-left: 50px;
@@ -82,9 +83,7 @@
     justify-content: center;
     width: 100%;
     transition: transform 0.5s ease;
-    height: 100%;
-    position: absolute;
-
+    overflow: hidden;
   }
 
   .icon_thermal{
@@ -120,6 +119,7 @@
     font-weight: bold;
     margin-right: 5px;
     color: var(--text_color);
+
   }
   
   .thermal_row_1_col{
@@ -127,13 +127,11 @@
     flex-direction: row;
     flex:1;
     justify-content: center;
-    /* opacity: 0;
-    transition: opacity 0.5s ease; */
   }
+  .thermal_row_1_col.visible {  
+    opacity: 1; /* Hiển thị thẻ hiện tại */
+}
 
-  .thermal_row_1_col + .thermal_row_1_col{
-    margin-left: 40px;
-  }
   .thermal_row_1_col_row_2{
     display: flex;
     flex-direction: row;

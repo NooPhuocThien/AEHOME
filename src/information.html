@@ -7,30 +7,30 @@
         <link rel="icon" href="../uibuilder/images/node-blue.ico">
         <!-- <meta name="description" content="Node-RED uibuilder - Blank template"> -->
         <link type="text/css" rel="stylesheet" href="./index.css" media="all">
-        <link type="text/css" rel="stylesheet" href="./table.css" media="all">
         <link type="text/css" rel="stylesheet" href="./realtime.css" media="all">
         <link type="text/css" rel="stylesheet" href="./iot.css" media="all">
         <link type="text/css" rel="stylesheet" href="./kaizen.css" media="all">
         <link type="text/css" rel="stylesheet" href="./information.css" media="all">
-        <link type="text/css" rel="stylesheet" href="./game.css" media="all">
-
+        <link rel="stylesheet" type="text/css" href="./default.css" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script defer src="./index.js"></script>
         <script defer src="../uibuilder/uibuilder.iife.min.js"></script>
-        <script src="jquery-3.6.0.min.js"></script>
-        <script src="jquery.orgchart.min.js"></script>
-        <link rel="stylesheet" href="jquery.orgchart.min.css">
+        <!-- <script src="jquery-3.6.0.min.js"></script> -->
+        <!-- <script src="jquery.orgchart.min.js"></script> -->
+        <!-- <link rel="stylesheet" href="jquery.orgchart.min.css"> -->
         <script type="text/javascript" src="jsorg.js"></script>
         <script type="text/javascript" src="types.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/default.css" />
+  
     </head>
 </html>
 <body>
     <div class="main_container">
         <div class="header_container">
+            <div class="header_left">
                 <div class="header_text">
                         WELCOME TO  
                     </div>
-                    <div class="header_logo">
+                    <div class="header_logo" onclick="document.getElementById('upfile_id').style.display = 'flex'">
                         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
                         <svg
                         class="icon_logo"
@@ -97,103 +97,116 @@
                     <div class="header_text">
                         DEPARTMENT
                     </div>
+                  </div>
+                  <div class="header_right">
+                    <div class="header_right_col">
+                        <a href="http://172.21.149.102/mediawiki/index.php/Main_Page" target="_blank" rel="noopener noreferrer">  
+                            <div class="header_right_text">
+                                VY WIKI
+                        </div>
+                        </a> 
+                     
+                        <div class="space"></div>
+                    </div>
+                    <div class="header_right_col">
+                        <div class="header_right_text"  onclick="document.getElementById('iot_system_id').scrollIntoView({ behavior: 'smooth' });">
+                                IOT System 
+                        </div>
+                        <div class="space"></div>
+                    </div>
+                    <div class="header_right_col">
+                        <div class="header_right_text" onclick="document.getElementById('kaizen_id').scrollIntoView({ behavior: 'smooth' });">
+                            AE Kaizen</div>
+                        <div class="space"></div>
+                    </div>
+                    <div class="header_right_col">
+                        <div class="header_right_text" onclick="document.getElementById('information_id').scrollIntoView({ behavior: 'smooth' });">
+                            AE Information</div>
+                        <div class="space"></div>
+                    </div>
+                    <div class="header_right_col">
+                        <div class="header_right_text" onclick="document.getElementById('ae_machine_id').scrollIntoView({ behavior: 'smooth' });">
+                            AE Machine</div>
+                    </div>
                 </div>
-        <div class="real_time_data_container">
-            <div class="aac_container">
+            </div>
+
+                <div class="real_time_data_container">
                     <div class="machine_card_container">
                         <div class="aac_machine_status">
+                            <div class="machine_status" id="gm_status_id"></div>
                             <div class="machine_name">GM</div>
-                            <div class="machine_status"></div>
                         </div>
                         <div class="machine_card_container_col">
                             <div class="aac_machine_card">
                                     <div class="aac_text">Output: </div>
-                                    <div class="aac_value" style="margin-left: 18px;">200 </div>
+                                    <div class="aac_value"  id="gm_output_id">200 </div>
                                     <div class="aac_unit">prs </div>
-                            </div>
-                            <div class="aac_machine_card">
-                                    <div class="aac_text">Operation: </div>
-                                    <div class="aac_value">200 </div>
-                                    <div class="aac_unit">min </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="machine_card_container">
                         <div class="aac_machine_status">
+                            <div class="machine_status" id="ar_status_id"></div>
                             <div class="machine_name">AR</div>
-                            <div class="machine_status"></div>
                         </div>
                         <div class="machine_card_container_col">
                             <div class="aac_machine_card">
                                     <div class="aac_text">Output: </div>
-                                    <div class="aac_value" style="margin-left: 18px;">200 </div>
+                                    <div class="aac_value" id="ar_output_id" >200 </div>
                                     <div class="aac_unit">prs </div>
-                            </div>
-                            <div class="aac_machine_card">
-                                    <div class="aac_text">Operation: </div>
-                                    <div class="aac_value">200 </div>
-                                    <div class="aac_unit">min </div>
                             </div>
                         </div>
                     </div>
-                    <div class="machine_card_container">
-                        <div class="aac_machine_status">
-                            <div class="machine_name">AP</div>
-                            <div class="machine_status"></div>
-                        </div>
-                        <div class="machine_card_container_col">
-                            <div class="aac_machine_card">
-                                    <div class="aac_text">Output: </div>
-                                    <div class="aac_value" style="margin-left: 18px;">200 </div>
-                                    <div class="aac_unit">prs </div>
-                            </div>
-                            <div class="aac_machine_card">
-                                    <div class="aac_text">Operation: </div>
-                                    <div class="aac_value">200 </div>
-                                    <div class="aac_unit">min </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="machine_card_container">
-                        <div class="aac_machine_status">
-                            <div class="machine_name">AC</div>
-                            <div class="machine_status"></div>
-                        </div>
-                        <div class="machine_card_container_col">
-                            <div class="aac_machine_card">
-                                    <div class="aac_text">Output: </div>
-                                    <div class="aac_value" style="margin-left: 18px;">200 </div>
-                                    <div class="aac_unit">prs </div>
-                            </div>
-                            <div class="aac_machine_card">
-                                    <div class="aac_text">Operation: </div>
-                                    <div class="aac_value">200 </div>
-                                    <div class="aac_unit">min </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-            <div class="thermal_container">
-                    <div class="thermal_row_1">
-                        <div class="thermal_row_1_col">
-                            <div class="thermal_row_1_col_row_1">A1</div>
+                    <div class="machine_card_container">
+                        <div class="aac_machine_status">
+                            <div class="machine_status" id="ap_status_id"></div>
+                            <div class="machine_name">AP</div>
+                        </div>
+                        <div class="machine_card_container_col">
+                            <div class="aac_machine_card">
+                                    <div class="aac_text">Output: </div>
+                                    <div class="aac_value" id="ap_output_id" >200 </div>
+                                    <div class="aac_unit">prs </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="machine_card_container">
+                        <div class="aac_machine_status">
+                            <div class="machine_status" id="ac_status_id"></div>
+                            <div class="machine_name">AC</div>
+                        </div>
+                        <div class="machine_card_container_col">
+                            <div class="aac_machine_card">
+                                    <div class="aac_text">Output: </div>
+                                    <div class="aac_value" id="ac_output_id" >200 </div>
+                                    <div class="aac_unit">prs </div>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="machine_card_container">
+                    <div class="thermal_container">
+                        <div class="thermal_row_1_col visible">
+                            <div class="thermal_row_1_col_row_1" id="thermal_id_id">--</div>
                             <div class="thermal_row_1_col_row_2">
                                 <div class="thermal_icon">
                                     <img src="img/sunny-svgrepo-com.svg" class="icon_thermal">
                                 </div>
-                                <div class="thermal_value">20°C</div>
+                                <div class="thermal_value" id="thermal_temp_id">--</div>
                             </div>
                             <div class="thermal_row_1_col_row_2">
                                 <div class="thermal_icon">
                                     <img src="img/water-drops-svgrepo-com.svg" class="icon_thermal">
                                 </div>
-                                <div class="thermal_value">20%</div>
+                                <div class="thermal_value" id="thermal_humid_id">--</div>
                             </div>
                         </div>
 
-                        <div class="thermal_row_1_col">
+                        <!-- <div class="thermal_row_1_col"  style="position: absolute;" >
                             <div class="thermal_row_1_col_row_1">A2</div>
                             <div class="thermal_row_1_col_row_2">
                                 <div class="thermal_icon">
@@ -209,7 +222,7 @@
                             </div>
                         </div>
 
-                        <div class="thermal_row_1_col">
+                        <div class="thermal_row_1_col" style="position: absolute;" >
                             <div class="thermal_row_1_col_row_1">A3</div>
                             <div class="thermal_row_1_col_row_2">
                                 <div class="thermal_icon">
@@ -224,12 +237,10 @@
                                 <div class="thermal_value">20%</div>
                             </div>
                         </div>
-                        </div>
 
-                        <div class="thermal_row_1">
-                            <div class="thermal_row_1_col">
+                            <div class="thermal_row_1_col"  style="position: absolute;" >
                                 <div class="thermal_row_1_col_row_1">A6</div>
-                                <div class="thermal_row_1_col_row_2">
+                                 <div class="thermal_row_1_col_row_2">
                                     <div class="thermal_icon">
                                         <img src="img/sunny-svgrepo-com.svg" class="icon_thermal">
                                     </div>
@@ -243,7 +254,7 @@
                                 </div>
                             </div>
     
-                            <div class="thermal_row_1_col">
+                            <div class="thermal_row_1_col"  style="position: absolute;" >
                                 <div class="thermal_row_1_col_row_1">A7</div>
                                 <div class="thermal_row_1_col_row_2">
                                     <div class="thermal_icon">
@@ -259,7 +270,7 @@
                                 </div>
                             </div>
     
-                            <div class="thermal_row_1_col">
+                            <div class="thermal_row_1_col" style="position: absolute;" >
                                 <div class="thermal_row_1_col_row_1">A8</div>
                                 <div class="thermal_row_1_col_row_2">
                                     <div class="thermal_icon">
@@ -273,199 +284,19 @@
                                     </div>
                                     <div class="thermal_value">20%</div>
                                 </div>
-                            </div>
+                            </div> -->
+
                         </div>
                     </div>
                 </div>
-        <div class="separator_container">
-            <div class="separator_line_container">
-                <div class="separator_line_left"></div>
-                <div class="separator_line_right"></div>
-            </div>
-        </div>
 
-<div class="topic_title_text">IOT SYSTEM</div>
-        <div class="iot_system_container">
-            <div class="iot_system_row_1">
-                <div class="iot_system_row_1_left_col">
-                    BẢNG TIN THỜI SỰ
-                </div>
-                <div class="iot_system_row_1_right_col">
-                    <div class="iot_system_row_1_right_col_row">
-                        <div class="iot_picture">
-                            <img src="img/Warehouse.gif" class="iot_icon">
-                        </div>
-                        <div class="iot_describe">
-                            <div class="iot_topic">Warehouse</div>
-                            <div class="iot_text">
-                                QUE'S HAU là 1 hệ thống đỉnh vãi lone, vô đó sệch được tùm lum linh kiện
-                            </div>
-                        </div>
-                    </div>
-                    <div class="iot_system_row_1_right_col_row">
-                        <div class="iot_picture">
-                            <img src="img/AAC.gif" class="iot_icon">
-                        </div>
-                        <div class="iot_describe">
-                            <div class="iot_topic">AAC DRS</div>
-                            <div class="iot_text">
-                                AAC DRS là 1 hệ thống theo dõi sản lượng của máy AAC
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="iot_system_row_2">
-                <div class="iot_system_row_2_left_col">
-                    <div class="iot_system_row_2_left_col_col">
-                        <div class="iot_picture">
-                            <img src="img/MTTR-MTBF.gif" class="iot_icon">
-                        </div>
-                        <div class="iot_describe">
-                            <div class="iot_topic">MTTR-MTBF</div>
-                            <div class="iot_text">
-                                MTTR-MTBF là 1 hệ thống quánh giá KPI máy của bộ phận
-                            </div>
-                        </div>
-                    </div>
-                    <div class="iot_system_row_2_left_col_col">
-                        <div class="iot_picture">
-                            <img src="img/thermal.JPG" class="iot_icon">
-                        </div>
-                        <div class="iot_describe">
-                            <div class="iot_topic">THERMAL</div>
-                            <div class="iot_text">
-                                Thermal là 1 hệ thống theo dõi nhiệt độ độ ẩm từ xa cho các kho hàng
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="iot_system_row_2_right_col">
-                    <div class="iot_picture">
-                        <img src="img/A18.JPG" class="iot_icon">
-                    </div>
-                    <div class="iot_describe">
-                        <div class="iot_topic">CART TRACKING</div>
-                        <div class="iot_text">
-                            Thermal là 1 hệ thống theo dõi nhiệt độ độ ẩm từ xa cho các kho hàng
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="separator_container">
-            <div class="separator_line_container">
-                <div class="separator_line_left"></div>
-                <div class="separator_line_right"></div>
-            </div>
-        </div>
-
-        <div class="topic_title_text">AE's Improvements</div>
-        <div class="kaizen_container">
-            <div class="kaizen_row">
-                <div class="kaizen_row_col">
-                    <div class="kaizen_picture">
-                        <div class="kaizen_pic_col">
-                            <img src="img/distroymachine_1.png" class="kaizen_icon">
-                        </div>
-                        <div class="kaizen_pic_col">
-                            <img src="img/distroymachine_2.png" class="kaizen_icon">
-                        </div>
-                    </div>
-                    <div class="kaizen_describe">
-                        <div class="kaizen_topic">Distroy Stemp Machine</div>
-                        <div class="kaizen_text">
-                            Thermal là 1 hệ thống theo dõi nhiệt độ độ ẩm từ xa cho các kho hàng
-                        </div>
-                    </div>
-                </div>
-                <div class="kaizen_row_col">a</div>
-                <div class="kaizen_row_col">a</div>
-            </div>
-            <div class="kaizen_row">
-                <div class="kaizen_row_col">
-                    <div class="kaizen_picture">
-                        <div class="kaizen_pic_col">
-                            <img src="img/distroymachine_2.png" class="kaizen_icon">
-                        </div>
-                        <div class="kaizen_pic_col">
-                            <img src="img/distroymachine_1.png" class="kaizen_icon">
-                        </div>
-                    </div>
-                    <div class="kaizen_describe">
-                        <div class="kaizen_topic">Distroy Stemp Machine</div>
-                        <div class="kaizen_text">
-                            Thermal là 1 hệ thống theo dõi nhiệt độ độ ẩm từ xa cho các kho hàng
-                        </div>
-                    </div>
-                </div>
-                <div class="kaizen_row_col">a</div>
-                <div class="kaizen_row_col">a</div>
-            </div>
-        </div>
-
-        <div class="separator_container">
-            <div class="separator_line_container">
-                <div class="separator_line_left"></div>
-                <div class="separator_line_right"></div>
-            </div>
-        </div>
-
-        <div class="topic_title_text">AE's Information</div>
-        <div class="ae_infor_container">
-            <div class="ae_infor_left">
-                <div class="org_chart">
-                    <div class="chartorg" id="chartDiv" ></div>
-                </div>
-            </div>
-            <div class="ae_infor_right">
-                <div class="ae_infor_picture">
-                    <img src="img/duongtang.JPG" class="ae_picture">
-                </div>
-                <div class="ae_infor_text">
-                    <H1 id="infor_name_id">Tank</H1>
-                    <div class="ae_infor_row">
-                        <div class="infor_row_type">VN name: </div>
-                        <div class="infor_row_value">Trần Hạo Tăng</div>
-                    </div>
-                    <div class="ae_infor_row">
-                        <div class="infor_row_type">Date of birth: </div>
-                        <div class="infor_row_value">1996-06-09</div>
-                    </div>
-                    <div class="ae_infor_row">
-                        <div class="infor_row_type">Mobile phone: </div>
-                        <div class="infor_row_value">0969696969</div>
-                    </div>
-                    <div class="ae_infor_row_skill">
-                        <div class="infor_row_type">Skills Matrix: </div>
-                        <div class="ae_infor_row_skill_name">Skills Matrix: </div>
-                        <div class="ae_infor_row_skill_value">0969696969</div>
-                    </div>
-                </div>
-            </div>  
-        </div>  
-
-        <div class="separator_container">
-            <div class="separator_line_container">
-                <div class="separator_line_left"></div>
-                <div class="separator_line_right"></div>
-            </div>
-        </div>
-
-        <div class="topic_title_text">AE Machine</div>
-        <div class="ae_machine_container">
-
-        </div>
-    </div>
-</body>
+    </body>
+    </html>
+    
 
 
 
 
 
-        <!-- <div class="xephinh">
-            <div id="timer">Thời gian: 0s</div>
-            <div id="message"></div>
-            <div class="container" id="gameBoard"></div>
-        </div> -->
+
+    

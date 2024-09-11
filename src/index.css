@@ -49,6 +49,19 @@ body {
   align-items: center;
   font-weight: bold;
 }
+.header_logo{
+  display: flex;
+  font-family: broadway;
+  background-color: rgb(228, 150, 4);
+  color: white;
+  font-size: 40px;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+
 .header_right{
   display: flex;
   width: 100%;

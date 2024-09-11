@@ -1,9 +1,136 @@
 var main_color = getComputedStyle(document.documentElement).getPropertyValue("--main_color")
 
+window.onload = function () {
+  uibuilder.start();
+  {
+    var status_check = "reload";
+    console.log(status_check);
+    var msg = {
+      topic: "page_reload",
+      payload: status_check,
+    };
+    uibuilder.send(msg);
+  }
+
+  uibuilder.onChange("msg", function (msg) {
+
+    if (msg.topic === "AGM") {
+          var status = msg.payload.status
+          var status_color;
+            if(status === 0){
+                  status_color = '#a4a9b2ff'
+                } else if(status === 1){
+                  status_color = '#abd876ff'
+                } else if(status === 2){
+                  status_color = '#ffd85aff'
+                } else if(status === 3){
+                  status_color = '#ef6454ff'
+                }
+              document.getElementById('gm_status_id').style.backgroundColor = status_color
+              document.getElementById('gm_output_id').innerText = msg.payload.output_col
+    }
+    if (msg.topic === "AR") {
+      var status = msg.payload.status
+      var status_color;
+        if(status === 0){
+              status_color = '#a4a9b2ff'
+            } else if(status === 1){
+              status_color = '#abd876ff'
+            } else if(status === 2){
+              status_color = '#ffd85aff'
+            } else if(status === 3){
+              status_color = '#ef6454ff'
+            }
+          document.getElementById('ar_status_id').style.backgroundColor = status_color
+          document.getElementById('ar_output_id').innerText = msg.payload.output_col
+      }
+      if (msg.topic === "AP") {
+        var status = msg.payload.status
+        var status_color;
+          if(status === 0){
+                status_color = '#a4a9b2ff'
+              } else if(status === 1){
+                status_color = '#abd876ff'
+              } else if(status === 2){
+                status_color = '#ffd85aff'
+              } else if(status === 3){
+                status_color = '#ef6454ff'
+              }
+            document.getElementById('ap_status_id').style.backgroundColor = status_color
+            document.getElementById('ap_output_id').innerText = msg.payload.output_col
+  }
+  if (msg.topic === "AC") {
+          var status = msg.payload.status
+          var status_color;
+            if(status === 0){
+                  status_color = '#a4a9b2ff'
+                } else if(status === 1){
+                  status_color = '#abd876ff'
+                } else if(status === 2){
+                  status_color = '#ffd85aff'
+                } else if(status === 3){
+                  status_color = '#ef6454ff'
+                }
+              document.getElementById('ac_status_id').style.backgroundColor = status_color
+              document.getElementById('ac_output_id').innerText = msg.payload.output_col
+          }
+
+        if(msg.topic === 'temphumid'){
+          var id = msg.payload.id
+          var temp = msg.payload.temp + '°C'
+          var humid = msg.payload.humid + '%'
+          document.getElementById('thermal_id_id').innerText = id
+          document.getElementById('thermal_temp_id').innerText = temp
+          document.getElementById('thermal_humid_id').innerText = humid
+        }
+  });
+};
+
+
+
+
 function ae_information(name_value){
   console.log(name_value)
   document.getElementById('infor_name_id').innerText = name_value;
 }
+
+
+function create_edit_skill(){
+  document.getElementById('edit_profile_id').style.display ='flex'
+  const tbody = document.getElementById('insert_edit_skill');
+  const numberOfCells = 33; // Number of rows to add
+
+  for (let i = 0; i < numberOfCells; i++) {
+          const td = document.createElement('td');
+          const select = document.createElement('select');
+                    select.className = 'skill_table_input';
+                    const percentages = [0, 25, 50, 75, 100];
+                    percentages.forEach(percent => {
+                        const option = document.createElement('option');
+                        option.value = percent / 100;
+                        option.textContent = `${percent}%`;
+                        select.appendChild(option);
+                    });
+
+                    // Create div to show selected value
+                    const skillValueDiv = document.createElement('div');
+                    skillValueDiv.className = 'skill_value';
+                    skillValueDiv.textContent = select.options[select.selectedIndex].text;
+
+                    // Add change event to update the div
+                    select.addEventListener('change', (event) => {
+                        const selectedOption = event.target.options[event.target.selectedIndex];
+                        skillValueDiv.textContent = selectedOption.textContent;
+                    });
+
+                    // Append select and div to td
+                    td.appendChild(select);
+                    td.appendChild(skillValueDiv);
+                    tbody.appendChild(td);
+      }
+    }
+
+
 
 
 function uploadFile() {
@@ -28,6 +155,8 @@ function uploadFile() {
     reader.readAsDataURL(file); // Đọc file dưới dạng base64
   }
 }
+
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -93,339 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-// const ctx = document.getElementById('myPieChart');
-//             const myPieChart = new Chart(ctx, {
-//                 type: 'pie',
-//                 data: {
-//                     datasets: [{
-//                         data: [50, 50], // Phần trăm của từng phần
-//                         backgroundColor: ['#000000', '#ffffff'], // Màu sắc
-//                         borderColor: ['#000000'], // Màu viền
-//                         borderWidth: 1
-//                     }]
-//                 },
-//                 options: {
-//                   responsive: true,
-//                   plugins: {
-//                       legend: {
-//                           position: 'center',
-//                       },
-//                       tooltip: {
-//                           enabled: false // Tắt tooltip
-//                       }
-//                     },
-//                   },
-//             });
 
-
-
-
-
-
-
-
-var chart = JSC.chart('chartDiv', {
-    type: 'organizational down',
-    legend_visible: false,
-    defaultPoint_events_click: function() { 
-      var name_value = this.name
-      ae_information(name_value);
-    },
-    series: [
-      {
-        defaultPoint: {
-          focusGlow: { color: '%color', opacity: 0.3 },
-          connectorLine: { color: main_color, width: 1 }, 
-          label: {
-            text: '<span><span><img  width=50 height=50 transform=translate(-35,7) src=%img></span><span><span style="color:black;x=-30;y=0;font-weight:bold">%name</span><span>%data</span>',
-            margin_left: 30,
-            align: 'left',
-          },
-          annotation: {
-            width:120,
-            height:70,
-            corners: 'round',
-            radius: 5,
-            margin: [10, 20, 0, 0],
-            outline_color:'red',
-          },
-          outline_color:main_color,
-          outline_width: 1,
-          color: 'white', //màu nền của các nhánh
-        },
-        points: [
-          {
-            name: 'Eric',
-            id: 'eric',
-            attributes: {
-              img: 'img/Org5.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>AE-Manager</li><li>877654</li><li>EXT:2614</li></ul>',
-            //   tasks: '<ul> <li>Operations</li> <li>Bookkeeping</li><li><i>Strategy</i></li></ul>',
-            },  
-          },
-          
-          {
-            name: 'Stephen',
-            id: 'stephen',
-            parent: 'eric',
-            attributes: {
-            img: 'img/Org2.png',
-            data: '<ul style="font-size:10px;color:black;y=-20"><li>Manager</li><li>877670</li><li>EXT:2615</li></ul>',
-            //   tasks: '<ul><li>Product Strategy</li><li>Artistic Direction</li><li><i>Product Design</i></li></ul>',
-            },
-          },
-          {
-            name: 'Donald',
-            id: 'donald',
-            parent: 'stephen',
-            attributes: {
-              img: 'img/donald.JPG',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>VSM</li><li>01053296</li><li>EXT:2612</li></ul>',
-            //   tasks: '<ul><li>Marketing HR</li><li>Market Research</li></ul>',
-            },
-          },
-
-          {
-            name: 'Grant',
-            id: 'grant',
-            parent: 'donald',
-            attributes: {
-              img: 'img/Org2.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>GL</li><li>01054491</li><li>EXT:2612</li></ul>',
-            //   tasks: '<ul><li>Marketing HR</li><li>Market Research</li></ul>',
-            },
-          },
-          {
-            name: 'Alvin',
-            id: 'alvin',
-            parent: 'donald',
-            attributes: {
-              img: 'img/Org2.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>GL</li><li>01051219</li><li>EXT:2612</li></ul>',
-              tasks: '<ul><li>Marketing HR</li><li>Market Research</li></ul>',
-            },
-          },
-          {
-            name: 'Tim',
-            id: 'tim',
-            parent: 'grant',
-            attributes: {
-              img: 'img/Org2.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>TL</li><li>01058524</li><li>EXT:2612</li></ul>',
-              tasks: '<ul><li>Marketing HR</li><li>Market Research</li></ul>',
-            },
-          },
-          {
-            name: 'Vector',
-            id: 'vector',
-            parent: 'tim',
-            attributes: {
-              img: 'img/Org2.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>TL</li><li>01059342</li><li>EXT:2612</li></ul>',
-              tasks: '<ul><li>Marketing HR</li><li>Market Research</li></ul>',
-            },
-          },
-          {
-            name: 'Philip',
-            id: 'philip',
-            parent: 'vector',
-            attributes: {
-              img: 'img/Org2.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>TL</li><li>01070507</li><li>EXT:2612</li></ul>',
-              tasks: '<ul><li>Marketing HR</li><li>Market Research</li></ul>',
-            },
-          },
-          {
-            name: 'Sam',
-            id: 'sam',
-            parent: 'alvin',
-            attributes: {
-              img: 'img/Org2.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>TL</li><li>01056050</li><li>EXT:2612</li></ul>',
-              tasks: '<ul><li>Marketing HR</li><li>Market Research</li></ul>',
-            },
-          },
-          {
-            name: 'Bryan',
-            id: 'bryan',
-            parent: 'sam',
-            attributes: {
-              img: 'img/Org2.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>TL</li><li>01058097</li><li>EXT:2612</li></ul>',
-              tasks: '<ul><li>Marketing HR</li><li>Market Research</li></ul>',
-            },
-          },
-          {
-            name: 'Strong',
-            id: 'strong',
-            parent: 'stephen',
-            attributes: {
-              img: 'img/Org2.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>VSM</li><li>01051203</li><li>EXT:2068</li></ul>',
-              tasks: '<ul><li>Purchasing</li><li>Review</li></ul>',
-            },
-          },
-          {
-            name: 'David',
-            id: 'david',
-            parent: 'strong',
-            attributes: {
-              img: 'img/Org2.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>GL</li><li>01055714</li><li>EXT:2631</li></ul>',
-              tasks: '<ul><li>Purchasing</li><li>Review</li></ul>',
-            },
-          },
-          {
-            name: 'Justin',
-            id: 'justin',
-            parent: 'david',
-            attributes: {
-              img: 'img/Org2.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>TL</li><li>01055825</li><li>EXT:2631</li></ul>',
-              tasks: '<ul><li>Purchasing</li><li>Review</li></ul>',
-            },
-          },
-          {
-            name: 'Ari',
-            id: 'ari',
-            parent: 'justin',
-            attributes: {
-              img: 'img/Org2.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>TL</li><li>01057551</li><li>EXT:2631</li></ul>',
-              tasks: '<ul><li>Purchasing</li><li>Review</li></ul>',
-            },
-          },
-          {
-            name: 'Kai',
-            id: 'kai',
-            parent: 'david',
-            attributes: {
-              img: 'img/Org2.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>TL</li><li>01055140</li><li>EXT:2631</li></ul>',
-              tasks: '<ul><li>Purchasing</li><li>Review</li></ul>',
-            },
-          },
-          {
-            name: 'Tony',
-            id: 'tony',
-            parent: 'david',
-            attributes: {
-              img: 'img/Org2.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>TL</li><li>01051957</li><li>EXT:2631</li></ul>',
-              tasks: '<ul><li>Purchasing</li><li>Review</li></ul>',
-            },
-          },
-          {
-            name: 'Tom',
-            id: 'tom',
-            parent: 'tony',
-            attributes: {
-              img: 'img/Org2.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>TL</li><li>01054957</li><li>EXT:2631</li></ul>',
-              tasks: '<ul><li>Purchasing</li><li>Review</li></ul>',
-            },
-          },
-
-          {
-            name: 'Steve',
-            id: 'steve',
-            parent: 'stephen',
-            attributes: {
-              img: 'img/steve.JPG',
-              data: '<ul style="font-size:10px;color:black;y=-20;"><li>VSM</li><li>01058356</li><li>EXT:2611</li></ul>',
-              tasks: '<ul><li>Marketing HR</li><li>Market Research</li></ul>',
-            },
-          },
-          {
-            name: 'Jerry',
-            id: 'jerry',
-            parent: 'steve',
-            attributes: {
-              img: 'img/Org3.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>GL</li><li>01054201</li><li>EXT:2611</li></ul>',
-              tasks: '<ul><li>Marketing HR</li><li>Market Research</li></ul>',
-            },
-          },
-          {
-            name: 'William',
-            id: 'william',
-            parent: 'jerry',
-            attributes: {
-              img: 'img/Org3.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>TL</li><li>01053333</li><li>EXT:2611</li></ul>',
-              tasks: '<ul><li>Marketing HR</li><li>Market Research</li></ul>',
-            },
-          },
-
-
-          {
-            name: 'Yorn',
-            id: 'yorn',
-            parent: 'william',
-            attributes: {
-              img: 'img/Org3.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>TL</li><li>01056119</li><li>EXT:2611</li></ul>',
-              tasks: '<ul><li>Marketing HR</li><li>Market Research</li></ul>',
-            },
-          },
-
-          {
-            name: 'Conte',
-            id: 'conte',
-            parent: 'steve',
-            attributes: {
-              img: 'img/Org3.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>GL</li><li>01055701</li><li>EXT:2631</li></ul>',
-              tasks: '<ul><li>Marketing HR</li><li>Market Research</li></ul>',
-            },
-          },
-          {
-            name: 'Dominic',
-            id: 'dominic',
-            parent: 'conte',
-            attributes: {
-              img: 'img/Org3.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>TL</li><li>01053336</li><li>EXT:2632</li></ul>',
-              tasks: '<ul><li>Marketing HR</li><li>Market Research</li></ul>',
-            },
-          },
-          {
-            name: 'Peter',
-            id: 'peter',
-            parent: 'dominic',
-            attributes: {
-              img: 'img/Org3.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>TL</li><li>01053340</li><li>EXT:2632</li></ul>',
-              tasks: '<ul><li>Marketing HR</li><li>Market Research</li></ul>',
-            },
-          },
-          {
-            name: 'Otis',
-            id: 'otis',
-            parent: 'peter',
-            attributes: {
-              img: 'img/Org3.png',
-              data: '<ul style="font-size:10px;color:black;y=-20"><li>TL</li><li>01053340</li><li>EXT:2632</li></ul>',
-              tasks: '<ul><li>Marketing HR</li><li>Market Research</li></ul>',
-            },
-          },
-
-        //   {
-        //     name: 'Tracy',
-        //     id: 'tracy',
-        //     parent: 'stephen',
-        //     attributes: {
-        //       img: 'img/Org7.png',
-        //       data: '<ul><li>TL</li><li>773-555-4444</li><li><i>Chicago, IL</i></li></ul>',
-        //       tasks: '<ul><li>Marketing HR</li><li>Market Research</li></ul>',
-        //     },
-        //   },
-
-        ],
-      },
-    ],
-
-  });
 
 
 
@@ -447,7 +244,7 @@ var chart = JSC.chart('chartDiv', {
     let gameStarted = false;
 
     function createBoard() {
-        board.innerHTML = '';
+        // board.innerHTML = '';
         numbers.forEach((number, index) => {
             const tile = document.createElement('div');
             tile.classList.add('tile');
@@ -459,7 +256,7 @@ var chart = JSC.chart('chartDiv', {
             }
             tile.dataset.index = index;
             tile.addEventListener('click', handleTileClick);
-            board.appendChild(tile);
+            // board.appendChild(tile);
         });
     }
 
@@ -530,31 +327,3 @@ var chart = JSC.chart('chartDiv', {
 
 
 
-
-
-// auto scroll
-
-const scrollContent = document.querySelector('.thermal_container');
-        const items = document.querySelectorAll('.thermal_row_1_col');
-        const itemHeight = items[0].offsetHeight; // Chiều cao của từng thẻ
-        console.log(items)
-        const totalItems = items.length;
-        let currentIndex = 0;
-        const scrollInterval = 2000; // Thay đổi khoảng thời gian nếu cần
-
-        function autoScroll() {
-            // Ẩn tất cả các thẻ
-            items.forEach(item => item.classList.remove('visible'));
-
-            // Tính toán vị trí của thẻ hiện tại
-            const offset = currentIndex * itemHeight;
-            scrollContent.style.transform = `translateY(-${offset}px)`;
-            
-            // Hiển thị thẻ hiện tại
-            items[currentIndex].classList.add('visible');
-
-            // Cập nhật chỉ mục và quay lại đầu nếu cần
-            currentIndex = (currentIndex + 1) % totalItems;
-        }
-
-        setInterval(autoScroll, scrollInterval);
